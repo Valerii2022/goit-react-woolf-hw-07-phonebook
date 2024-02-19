@@ -1,11 +1,11 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { getContactsNames } from '../../redux/selectors';
+import { selectContactsNames } from '../../redux/selectors';
 import { Form, AddContactBtn, FormLabel, FormInput } from './styled';
 import { addContact } from '../../redux/operations';
 
 export const ContactForm = () => {
   const dispatch = useDispatch();
-  const contacts = useSelector(getContactsNames);
+  const contacts = useSelector(selectContactsNames);
   const newContact = { name: '', phone: null };
 
   const handleInputChange = e => {

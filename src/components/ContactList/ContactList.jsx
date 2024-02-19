@@ -1,13 +1,13 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { getContactsNames, getFilter } from '../../redux/selectors';
+import { selectContactsNames, selectFilter } from '../../redux/selectors';
 import { useEffect } from 'react';
 import { deleteContact, fetchContacts } from '../../redux/operations';
 import { List, ListItem, Name, PhoneNumber, DeleteBtn } from './styled';
 
 export const ContactList = () => {
   const dispatch = useDispatch();
-  const { items, isLoading, error } = useSelector(getContactsNames);
-  const queryFilter = useSelector(getFilter);
+  const { items, isLoading, error } = useSelector(selectContactsNames);
+  const queryFilter = useSelector(selectFilter);
 
   useEffect(() => {
     dispatch(fetchContacts());
