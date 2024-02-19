@@ -1,32 +1,27 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { selectContactsNames } from '../../redux/selectors';
+import { selectCurrentContacts } from '../../redux/selectors';
 import { Form, AddContactBtn, FormLabel, FormInput } from './styled';
 import { addContact } from '../../redux/operations';
 
 export const ContactForm = () => {
   const dispatch = useDispatch();
-  const contacts = useSelector(selectContactsNames);
-  const newContact = { name: '', phone: null };
+  const contacts = useSelector(selectCurrentContacts);
+  const newContact = {};
 
   const handleInputChange = e => {
-    if (e.target.name === 'name') newContact.name = e.target.value;
-    if (e.target.name === 'number') newContact.phone = e.target.value;
+    newContact[e.target.name] = e.target.value;
   };
 
   const onSubmit = e => {
     e.preventDefault();
-    const addedName = contacts.items.some(
+    const addedName = contacts.some(
       contact => contact.name.toLowerCase() === newContact.name.toLowerCase()
     );
-
     if (addedName) {
       return alert(`${newContact.name} is already in contacts`);
     }
-
     dispatch(addContact(newContact));
-
-    e.target[0].value = '';
-    e.target[1].value = '';
+    e.target.reset();
   };
 
   return (
